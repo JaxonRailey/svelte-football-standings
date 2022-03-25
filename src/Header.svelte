@@ -1,6 +1,6 @@
 <script>
-    export let league = '';
-    export let loader = '';
+    export let league;
+    export let loader;
 </script>
 
 <header {loader}>
