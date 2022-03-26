@@ -47,3 +47,21 @@
 </main>
 
 <Footer league={league} loader={loader} on:changeLeague={changeLeague} />
+
+<style>
+
+    :global([loader="true"]) {
+        visibility: hidden;
+    }
+
+    main[loader="true"] {
+        visibility: visible;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
+
+</style>
