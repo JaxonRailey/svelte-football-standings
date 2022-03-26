@@ -1,4 +1,5 @@
 <script>
+
     export let league;
     export let loader;
            let src;

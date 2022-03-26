@@ -31,7 +31,9 @@
 </nav>
 
 <style>
+
     nav img {
         height: 36px;
     }
+
 </style>
