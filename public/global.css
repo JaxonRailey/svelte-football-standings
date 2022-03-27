@@ -20,6 +20,8 @@ header {
     padding-left: 10px;
     background-color: white;
     border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
 }
 
 h1 {

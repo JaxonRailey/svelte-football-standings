@@ -1,28 +1,28 @@
 <script>
 
     export let league;
-    export let loader;
-           let src;
+    export let nation;
+           let src = {};
 
     $: {
-        if (!league) league = '';
-        let slug = league.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
-        src = 'img/league/' + slug + '.png';
+        let slug   = league.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+        src.league = 'img/league/' + slug + '.png';
+        src.nation = 'img/nation/' + nation + '.png';
     }
 
 </script>
 
-<header {loader}>
-    <img {src} alt="{league}">
+<header>
+    <img src={src.nation} alt={nation}>
     <h1>{league}</h1>
+    <img src={src.league} alt={league}>
 </header>
 
 <style>
 
     img {
         height: 40px;
-        position: absolute;
-        top: 2px;
+        margin-top: 2px;
     }
 
 </style>

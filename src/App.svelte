@@ -1,67 +1,63 @@
 <script>
 
+    import { fade } from 'svelte/transition';
+
     import Header from './Header.svelte';
-    import Loader from './Loader.svelte';
     import Footer from './Footer.svelte';
 
-    let league = 'ita';
-    let title  = null;
-    let loader = true;
-    let reqs   = getData();
+    let nations = ['ita', 'eng', 'esp', 'fra', 'ger'];
+    let leagues = ['Serie A', 'Premier League', 'LaLiga', 'Ligue 1', 'Bundesliga'];
+    let nation  = nations[0];
+    let league  = leagues[0];
+    let reqs    = getData();
 
     async function getData() {
-        const response = await fetch('https://api-football-standings.azharimm.site/leagues/' + league + '.1/standings?season=2021');
+        const response = await fetch('https://api-football-standings.azharimm.site/leagues/' + nation + '.1/standings?season=2021');
         const data     = await response.json();
-              title    = data.data.name;
-              title    = title.substring(title.indexOf(' ') + 1);
-              loader   = false;
 
-        return data;
+        if (data.status === true) {
+            return data.data;
+        }
+
+        throw new Error(data.data);
     }
 
     function changeLeague(page) {
-        title  = '';
-        loader = true;
-        league = page.detail;
+        nation = page.detail;
+        league = leagues[nations.indexOf(nation)];
         reqs   = getData();
     }
 
 </script>
 
-<Header league={title} loader={loader} />
+<Header league={league} nation={nation} />
 
-<main {loader}>
-    {#await reqs}
-        <Loader />
-    {:then data}
-        <ul class="table-view">
-            {#each data.data.standings as team}
+<main>
+    {#await reqs then data}
+        <ul class="table-view" transition:fade>
+            {#each data.standings as team}
             <li class="table-view-cell">{team.team.name}
                 <span>{team.stats[6].value}</span>
             </li>
             {/each}
         </ul>
-    {:catch error}
-        <p>An error occurred!</p>
+    {:catch}
+        <p transition:fade>An error occurred!</p>
     {/await}
 </main>
 
-<Footer league={league} loader={loader} on:changeLeague={changeLeague} />
+<Footer nation={nation} nations={nations} on:changeLeague={changeLeague} />
 
 <style>
 
-    :global([loader="true"]) {
-        visibility: hidden;
-    }
-
-    main[loader="true"] {
-        visibility: visible;
+    p {
         display: flex;
-        width: 100%;
         height: 100%;
+        width: 100%;
         align-items: center;
         justify-content: center;
-        padding: 0;
+        font-size: 18px;
+        text-align: center;
     }
 
 </style>
