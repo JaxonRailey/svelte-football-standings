@@ -22,6 +22,27 @@
 
 <style>
 
+    nav {
+        bottom: 0;
+        display: table;
+        width: 100%;
+        height: 50px;
+        padding: 0;
+        table-layout: fixed;
+        border-top: 1px solid #ddd;
+        border-bottom: 0;
+        position: fixed;
+        background-color: white;
+        cursor: pointer;
+    }
+
+    nav a {
+        cursor: pointer;
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+    }
+
     nav img {
         height: 36px;
     }
